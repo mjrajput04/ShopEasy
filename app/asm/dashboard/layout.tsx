@@ -15,13 +15,9 @@ export default function ASMDashboardLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        <AuthProvider>
-          {children}
-          <Analytics />
-        </AuthProvider>
-      </body>
-    </html>
+    <AuthProvider>
+      {children}
+      <Analytics />
+    </AuthProvider>
   )
 }
