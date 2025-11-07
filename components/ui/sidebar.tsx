@@ -332,27 +332,98 @@ function SidebarInput({
   )
 }
 
-function SidebarHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function SidebarHeader({ className, children, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-header"
-      data-sidebar="header"
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn(
+        'flex items-center justify-center border-b p-2',
+        className,
+      )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   )
 }
 
-function SidebarFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function SidebarFooter({ className, children, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sidebar-footer"
-      data-sidebar="footer"
-      className={cn('flex flex-col gap-2 p-2', className)}
+      className={cn(
+        'flex items-center justify-center border-t p-2',
+        className,
+      )}
       {...props}
-    />
+    >
+      {children}
+    </div>
   )
 }
+
+function SidebarBody({ className, children, ...props }: React.ComponentProps<'div'>) {
+  return (
+    <div
+      data-slot="sidebar-body"
+      className={cn('flex flex-1 flex-col gap-y-2 overflow-y-auto', className)}
+      {...props}
+    >
+      {children}
+    </div>
+  )
+}
+
+function SidebarNav({ className, children, ...props }: React.ComponentProps<'nav'>) {
+  return (
+    <nav
+      data-slot="sidebar-nav"
+      className={cn('flex flex-col gap-y-1 p-2', className)}
+      {...props}
+    >
+      {children}
+    </nav>
+  )
+}
+
+const sidebarLinkVariants = cva(
+  'flex items-center gap-x-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
+  {
+    variants: {
+      variant: {
+        default: 'text-primary',
+        ghost: 'text-muted-foreground',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+)
+
+interface SidebarLinkProps
+  extends React.ComponentPropsWithoutRef<typeof Slot>,
+    VariantProps<typeof sidebarLinkVariants> {
+  asChild?: boolean
+}
+
+const SidebarLink = React.forwardRef<
+  React.ElementRef<typeof Slot>,
+  SidebarLinkProps
+>(({ className, children, asChild = false, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'a'
+  return (
+    <Comp
+      ref={ref}
+      className={cn(sidebarLinkVariants(), className)}
+      {...props}
+    >
+      {children}
+    </Comp>
+  )
+})
+
+SidebarLink.displayName = 'SidebarLink'
 
 function SidebarSeparator({
   className,
@@ -723,4 +794,7 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
+  SidebarBody,
+  SidebarNav,
+  SidebarLink,
 }
