@@ -5,6 +5,7 @@ import "./globals.css"
 import Link from "next/link"
 import { AuthProvider } from "./auth/context"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { SearchButton } from "@/components/search-button"
 
 export const metadata: Metadata = {
   title: "ShopEase - Premium Shopping",
@@ -109,8 +110,9 @@ export default function RootLayout({
                 </Link>
               </div>
 
-              {/* Language Dropdown and Login Button */}
+              {/* Search, Language Dropdown and Login Button */}
               <div className="flex items-center gap-4">
+                <SearchButton />
                 <LanguageSwitcher />
                 <Link
                   href="/login"
@@ -125,7 +127,6 @@ export default function RootLayout({
           {children}
           <Analytics />
         </AuthProvider>
-
       </body>
     </html>
   )
