@@ -345,7 +345,76 @@ export default function Home() {
           </div>
           <div className="mx-4 h-1 bg-black"></div>
           
-          <div className="pt-12 text-center">
+          {/* Customer Reviews Section */}
+          <div className="pt-12 mb-12">
+            <h3 className="text-3xl font-bold text-center text-foreground mb-8">What Our Customers Say</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-muted-foreground mb-4 italic">"Excellent quality belts! We've been using ShopEase products for our automotive business for 3 years. Never had any quality issues."</p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold mr-3">R</div>
+                  <div>
+                    <p className="font-semibold text-foreground">Rajesh Kumar</p>
+                    <p className="text-sm text-muted-foreground">Auto Parts Dealer</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-muted-foreground mb-4 italic">"Best industrial belts in the market. Their customer service is outstanding and delivery is always on time."</p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold mr-3">S</div>
+                  <div>
+                    <p className="font-semibold text-foreground">Suresh Patel</p>
+                    <p className="text-sm text-muted-foreground">Manufacturing Unit</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition">
+                <div className="flex items-center mb-4">
+                  <div className="flex text-yellow-400">
+                    {[...Array(4)].map((_, i) => (
+                      <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                    <svg className="w-5 h-5 text-gray-300 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                </div>
+                <p className="text-muted-foreground mb-4 italic">"Good quality products at competitive prices. Their agricultural belts have improved our farm equipment efficiency significantly."</p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold mr-3">A</div>
+                  <div>
+                    <p className="font-semibold text-foreground">Amit Singh</p>
+                    <p className="text-sm text-muted-foreground">Farmer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center">
             <h4 className="text-xl font-semibold text-foreground mb-4" id="whatsapp-support">WhatsApp Support: +91 77 55 99 44 87</h4>
             <p className="text-muted-foreground mb-8 max-w-4xl mx-auto" id="company-message">
               In ShopEase, Products are regularly evaluated & technology updated, matching the latest design requirements, so that our customers are satisfied.
