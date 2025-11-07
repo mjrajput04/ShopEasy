@@ -33,6 +33,7 @@ export function Footer() {
                 <li><a href="#" className="hover:text-gray-800 transition">After Market</a></li>
               </ul>
             </div>
+            
             <div>
               <h4 className="font-semibold text-gray-700 mb-6" id="company-address">ShopEase & Co Ltd</h4>
               <div className="text-sm text-gray-600 space-y-2">
