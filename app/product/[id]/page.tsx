@@ -150,192 +150,128 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      {/* Product Details Section */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 gap-12 mb-16">
-          {/* Product Image */}
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
-            <img src={product.image || "/placeholder.svg"} alt={product.name} className="w-full h-[450px] object-cover" />
+      <section className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-card rounded-xl overflow-hidden border border-border shadow-sm">
+            <img src={product.image || "/placeholder.svg"} alt={product.name} className="w-full h-[420px] object-cover" />
           </div>
 
-          {/* Product Info */}
-          <div>
-            <div className="mb-6">
-              <p className="text-sm text-muted-foreground mb-2">{product.category}</p>
-              <h1 className="text-xl md:text-2xl font-bold text-foreground mb-4">{product.name}</h1>
-
-              {/* Status Badge */}
-              <div className="mb-6">
-                {product.inStock ? (
-                  <span className="inline-block px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-semibold">
-                    <span id="in-stock">In Stock</span>
-                  </span>
-                ) : (
-                  <span className="inline-block px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm font-semibold">
-                    <span id="out-of-stock">Out of Stock</span>
-                  </span>
-                )}
-              </div>
+          <div className="space-y-5">
+            <div>
+              <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-semibold rounded-full mb-3">{product.category}</span>
+              <h1 className="text-2xl font-bold text-foreground mb-3 leading-tight">{product.name}</h1>
+              {product.supplier && (
+                <p className="text-sm text-muted-foreground">⭐ {product.supplier.rating}/5 · {product.supplier.reviews} reviews</p>
+              )}
             </div>
 
-            {/* Price */}
-            <div className="mb-6">
+            <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
               {product.price > 0 ? (
-                <p className="text-3xl font-bold text-accent">₹{product.price.toLocaleString()}</p>
+                <p className="text-3xl font-bold text-blue-600">₹{product.price.toLocaleString()}</p>
               ) : (
                 <p className="text-3xl font-bold text-blue-600">Ask Price</p>
               )}
-              <p className="text-muted-foreground mt-2" id="free-shipping">Free shipping on orders over ₹5000</p>
+              <p className="text-sm text-muted-foreground mt-2" id="free-shipping">✓ Free shipping on orders over ₹5000</p>
             </div>
 
-            {/* Specifications */}
             {product.specifications && (
-              <div className="mb-6">
+              <div className="bg-secondary/50 rounded-lg p-4">
                 <h3 className="font-semibold text-foreground mb-3">Specifications</h3>
-                <div className="space-y-2">
-                  {product.specifications.power && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Power:</span>
-                      <span className="font-medium">{product.specifications.power}</span>
-                    </div>
-                  )}
-                  {product.specifications.type && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Type:</span>
-                      <span className="font-medium">{product.specifications.type}</span>
-                    </div>
-                  )}
-                  {product.specifications.brand && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Brand:</span>
-                      <span className="font-medium">{product.specifications.brand}</span>
-                    </div>
-                  )}
+                <div className="space-y-2 text-sm">
+                  {product.specifications.power && <div className="flex justify-between"><span className="text-muted-foreground">Power</span> <span className="font-semibold">{product.specifications.power}</span></div>}
+                  {product.specifications.type && <div className="flex justify-between"><span className="text-muted-foreground">Type</span> <span className="font-semibold">{product.specifications.type}</span></div>}
+                  {product.specifications.brand && <div className="flex justify-between"><span className="text-muted-foreground">Brand</span> <span className="font-semibold">{product.specifications.brand}</span></div>}
                 </div>
               </div>
             )}
 
 
 
-            {/* Quantity Selector */}
-            <div className="mb-8">
-              <label className="block text-sm font-semibold text-foreground mb-4" id="quantity-label">Quantity</label>
-              <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  disabled={!product.inStock}
-                  className="px-4 py-2 border border-border rounded-lg hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition"
-                >
+            <div>
+              <label className="block text-sm font-semibold text-foreground mb-2" id="quantity-label">Quantity</label>
+              <div className="flex items-center gap-3">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} disabled={!product.inStock} className="w-11 h-11 border-2 border-border rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 disabled:opacity-50 transition font-semibold">
                   −
                 </button>
-                <span className="text-2xl font-bold text-foreground w-8 text-center">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  disabled={!product.inStock}
-                  className="px-4 py-2 border border-border rounded-lg hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition"
-                >
+                <span className="text-2xl font-bold w-14 text-center">{quantity}</span>
+                <button onClick={() => setQuantity(quantity + 1)} disabled={!product.inStock} className="w-11 h-11 border-2 border-border rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 disabled:opacity-50 transition font-semibold">
                   +
                 </button>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className={`flex-1 px-8 py-4 rounded-lg font-semibold text-lg transition ${
+                className={`flex-1 py-3.5 rounded-lg font-semibold transition shadow-sm ${
                   product.inStock
                     ? addedToCart
                       ? "bg-green-600 text-white"
-                      : "bg-primary text-primary-foreground hover:opacity-90"
-                    : "bg-muted text-muted-foreground cursor-not-allowed"
+                      : "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md"
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
               >
-                {addedToCart ? <span id="added-to-cart">Added to Cart!</span> : product.inStock ? <span id="add-to-cart">Add to Cart</span> : <span id="out-of-stock">Out of Stock</span>}
+                {addedToCart ? <span id="added-to-cart">✓ Added</span> : product.inStock ? <span id="add-to-cart">Add to Cart</span> : <span id="out-of-stock">Out of Stock</span>}
               </button>
-              <button className="px-8 py-4 border border-border rounded-lg font-semibold hover:bg-secondary transition">
-                ♡
-              </button>
+              <button className="w-12 h-12 border-2 border-border rounded-lg hover:border-red-500 hover:text-red-500 transition">♡</button>
             </div>
-
-
           </div>
         </div>
 
-        {/* Supplier Information Section */}
         {product.supplier && (
-          <div className="mb-16 p-6 bg-secondary rounded-lg">
-            <h3 className="text-xl font-semibold text-foreground mb-4">Supplier Information</h3>
-            <div className="grid md:grid-cols-2 gap-4 mb-6">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Company:</span>
-                <span className="font-medium">{product.supplier.name}</span>
+          <div className="mt-8 p-6 bg-card rounded-xl border border-border shadow-sm">
+            <h3 className="text-lg font-semibold mb-4">Supplier Information</h3>
+            <div className="grid md:grid-cols-3 gap-3 text-sm mb-5">
+              <div className="bg-secondary/50 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground mb-1">Company</p>
+                <p className="font-semibold">{product.supplier.name}</p>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Location:</span>
-                <span className="font-medium">{product.supplier.location}</span>
+              <div className="bg-secondary/50 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground mb-1">Location</p>
+                <p className="font-semibold">{product.supplier.location}</p>
               </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Rating:</span>
-                <span className="font-medium">{product.supplier.rating}/5 ({product.supplier.reviews} reviews)</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Experience:</span>
-                <span className="font-medium">{product.supplier.experience}</span>
+              <div className="bg-secondary/50 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground mb-1">Experience</p>
+                <p className="font-semibold">{product.supplier.experience}</p>
               </div>
             </div>
-            
-            {/* Warranty & Support Info */}
-            <div className="grid grid-cols-3 gap-4 text-center pt-4 border-t border-border">
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border text-center">
               <div>
-                <p className="text-2xl font-bold text-accent">30-Day</p>
-                <p className="text-sm text-muted-foreground">Money Back</p>
+                <p className="text-lg font-bold">30-Day</p>
+                <p className="text-xs text-muted-foreground">Money Back</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-accent">2 Years</p>
-                <p className="text-sm text-muted-foreground">Warranty</p>
+                <p className="text-lg font-bold">2 Years</p>
+                <p className="text-xs text-muted-foreground">Warranty</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-accent">24/7</p>
-                <p className="text-sm text-muted-foreground">Support</p>
+                <p className="text-lg font-bold">24/7</p>
+                <p className="text-xs text-muted-foreground">Support</p>
               </div>
             </div>
           </div>
         )}
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <section className="mt-16 pt-16 border-t border-border">
-            <h2 className="text-3xl font-bold text-foreground mb-8" id="related-products">Related Products</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <section className="mt-12 pt-8 border-t border-border">
+            <h2 className="text-xl font-bold mb-6" id="related-products">Related Products</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {relatedProducts.map((relatedProduct) => (
-                <div
-                  key={relatedProduct.id}
-                  className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition cursor-pointer h-full flex flex-col"
-                  onClick={() => (window.location.href = `/product/${relatedProduct.id}`)}
-                >
-                  <div className="relative h-48 bg-secondary overflow-hidden">
-                    <img
-                      src={
-                        hoveredRelatedProductId === relatedProduct.id ? relatedProduct.hoverImage : relatedProduct.image
-                      }
-                      alt={relatedProduct.name}
-                      className="w-full h-full object-cover hover:scale-105 transition"
-                      onMouseEnter={() => setHoveredRelatedProductId(relatedProduct.id)}
-                      onMouseLeave={() => setHoveredRelatedProductId(null)}
-                    />
+                <div key={relatedProduct.id} className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-lg hover:border-blue-500 transition-all cursor-pointer" onClick={() => (window.location.href = `/product/${relatedProduct.id}`)}>
+                  <div className="h-44 bg-secondary overflow-hidden">
+                    <img src={relatedProduct.image} alt={relatedProduct.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                   </div>
-                  <div className="p-4 flex-1 flex flex-col">
-                    <p className="text-sm text-muted-foreground mb-2">{relatedProduct.category}</p>
-                    <h3 className="font-semibold text-foreground mb-2 line-clamp-2 flex-1">{relatedProduct.name}</h3>
-                    <div className="flex items-center justify-between mt-4">
+                  <div className="p-4">
+                    <p className="text-xs text-blue-600 dark:text-blue-400 font-medium mb-1">{relatedProduct.category}</p>
+                    <h3 className="font-semibold text-sm mb-3 line-clamp-2">{relatedProduct.name}</h3>
+                    <div className="flex items-center justify-between pt-2 border-t border-border">
                       {relatedProduct.price > 0 ? (
-                        <span className="text-lg font-bold text-accent">₹{relatedProduct.price.toLocaleString()}</span>
+                        <span className="text-base font-bold">₹{relatedProduct.price.toLocaleString()}</span>
                       ) : (
-                        <span className="text-lg font-bold text-blue-600">Ask Price</span>
+                        <span className="text-base font-bold text-blue-600">Ask Price</span>
                       )}
-                      <span className="text-accent hover:underline text-sm" id="view-button">View</span>
+                      <span className="text-blue-600 text-sm font-medium hover:underline" id="view-button">View →</span>
                     </div>
                   </div>
                 </div>

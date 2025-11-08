@@ -284,8 +284,8 @@ export default function ProductsPage() {
         <div className="flex gap-8">
           {/* Left Sidebar - Search and Filters */}
           <div className="w-64 flex-shrink-0">
-            <div className="bg-card border border-border rounded-lg p-6 sticky top-8">
-              <h2 className="text-xl font-bold text-primary mb-6" id="find-products">Find Products</h2>
+            <div className="bg-card border border-border rounded-xl p-6 sticky top-8 shadow-sm">
+              <h2 className="text-xl font-bold text-foreground mb-6" id="find-products">Find Products</h2>
               
               {/* Search */}
               <div className="mb-8">
@@ -294,14 +294,14 @@ export default function ProductsPage() {
                   placeholder="Search products..." id="search-placeholder"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-accent/50"
+                  className="w-full px-4 py-3 border border-border rounded-lg text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                 />
               </div>
 
               {/* Category Filter */}
               <div className="mb-8">
-                <h3 className="font-semibold mb-4 text-primary" id="category-filter">Category</h3>
-                <div className="space-y-3">
+                <h3 className="font-semibold mb-4 text-foreground" id="category-filter">Category</h3>
+                <div className="space-y-2">
                   {categories.map((category) => (
                     <label key={category} className="flex items-center cursor-pointer group">
                       <input
@@ -310,9 +310,9 @@ export default function ProductsPage() {
                         value={category}
                         checked={selectedCategory === category}
                         onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="mr-3 cursor-pointer"
+                        className="mr-3 cursor-pointer accent-blue-600"
                       />
-                      <span className="text-muted-foreground group-hover:text-foreground transition">
+                      <span className={`text-sm transition ${selectedCategory === category ? 'font-semibold text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
                         {category}
                       </span>
                     </label>
@@ -322,16 +322,19 @@ export default function ProductsPage() {
 
               {/* Price Range Filter */}
               <div>
-                <h3 className="font-semibold mb-4 text-primary"><span id="price-range-text">Price Range</span>: ₹{priceRange.toLocaleString()}</h3>
+                <h3 className="font-semibold mb-3 text-foreground"><span id="price-range-text">Price Range</span></h3>
+                <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3 mb-3">
+                  <p className="text-lg font-bold text-blue-600">₹{priceRange.toLocaleString()}</p>
+                </div>
                 <input
                   type="range"
                   min="0"
                   max="100000"
                   value={priceRange}
                   onChange={(e) => setPriceRange(Number(e.target.value))}
-                  className="w-full h-2 bg-border rounded appearance-none cursor-pointer accent-accent"
+                  className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
-                <div className="flex justify-between text-sm text-muted-foreground mt-2">
+                <div className="flex justify-between text-xs text-muted-foreground mt-2">
                   <span>₹0</span>
                   <span>₹1,00,000</span>
                 </div>
@@ -341,18 +344,18 @@ export default function ProductsPage() {
 
           {/* Right Content - Products Grid */}
           <div className="flex-1">
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-primary mb-2" id="all-products-title">All Products</h1>
-              <p className="text-muted-foreground"><span id="showing-text">Showing</span> {filteredProducts.length} <span id="products-count-text">products</span></p>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-foreground mb-2" id="all-products-title">All Products</h1>
+              <p className="text-muted-foreground"><span id="showing-text">Showing</span> <span className="font-semibold text-foreground">{filteredProducts.length}</span> <span id="products-count-text">products</span></p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))
               ) : (
-                <div className="col-span-full text-center py-16">
+                <div className="col-span-full text-center py-20">
                   <p className="text-muted-foreground text-lg" id="no-products-found">No products found matching your filters.</p>
                 </div>
               )}
