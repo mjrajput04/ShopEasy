@@ -310,3 +310,33 @@ nav a:hover::after {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Admin panel fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Float up animation for banner circles */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float-up {
+  animation: floatUp 1s ease-out forwards;
+}

@@ -188,8 +188,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Navigation />
-      <section className="banner-container relative bg-background min-h-[80vh]">
+      <div className="absolute top-0 left-0 right-0 z-50">
+        <Navigation transparent={true} />
+      </div>
+      <section className="banner-container relative bg-background min-h-screen">
         {banners.map((banner, index) => {
           const isActive = index === currentBanner
 
@@ -202,7 +204,16 @@ export default function Home() {
               style={{ backgroundImage: `url(${banner.image})` }}
             >
               <div className="absolute inset-0 bg-black/40"></div>
-              <div className="relative z-10 h-full max-w-7xl mx-auto px-4 flex flex-col items-start justify-center">
+              
+              {/* Animated Blue Circles */}
+              <div className={`absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/60 rounded-full blur-2xl transition-all duration-1000 z-10 ${
+                isActive ? "animate-float-up opacity-100" : "opacity-0 translate-y-20"
+              }`}></div>
+              <div className={`absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-cyan-400/50 rounded-full blur-2xl transition-all duration-1000 delay-300 z-10 ${
+                isActive ? "animate-float-up opacity-100" : "opacity-0 translate-y-20"
+              }`}></div>
+              
+              <div className="relative z-10 h-full max-w-7xl mx-auto px-4 flex flex-col items-start justify-center pt-32">
                 <h1 className="text-6xl md:text-8xl font-bold text-white mb-4">{banner.title}</h1>
                 <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl">{banner.subtitle}</p>
               </div>
@@ -224,12 +235,12 @@ export default function Home() {
           ))}
         </div>
         
-        {/* Wave SVG */}
+        {/* Wave SVG
         <div className="absolute bottom-0 left-0 w-full overflow-hidden">
           <svg className="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,120V114.37C149.93,61,314.09,48.68,475.83,77.43c43,7.64,84.23,20.12,127.61,26.46,59,8.63,112.48-12.24,165.56-35.4C827.93,42.78,886,24.76,951.2,30c86.53,7,172.46,45.71,248.8,84.81V120Z" fill="#ffffff"></path>
           </svg>
-        </div>
+        </div> */}
       </section>
 
       {/* Heritage Section */}

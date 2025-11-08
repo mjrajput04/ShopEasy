@@ -4,7 +4,7 @@ import Link from "next/link"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { SearchButton } from "@/components/search-button"
 
-export function Navigation() {
+export function Navigation({ transparent = false }: { transparent?: boolean }) {
   return (
     <>
       {/* Social Links Bar */}
@@ -39,20 +39,20 @@ export function Navigation() {
         </div>
       </div>
 
-      <nav className="border-b border-border bg-card animate-fade-in-up">
+      <nav className={transparent ? "bg-transparent" : "border-b border-border bg-card animate-fade-in-up"}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-foreground transform hover:scale-105 transition-all duration-300">
+          <Link href="/" className={`text-2xl font-bold transform hover:scale-105 transition-all duration-300 ${transparent ? "text-white" : "text-foreground"}`}>
             <span id="shopease-title">ShopEase</span>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Navigation Links and Actions */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/products" className="text-foreground hover:text-accent transition-all duration-300 transform hover:scale-105">
+            <Link href="/products" className={`hover:text-blue-500 transition-all duration-300 transform hover:scale-105 font-semibold ${transparent ? "text-white" : "text-foreground"}`}>
               <span id="products-text">Products</span>
             </Link>
             <div className="relative group">
-              <button className="text-foreground hover:text-accent transition-all duration-300 transform hover:scale-105 flex items-center gap-1">
+              <button className={`hover:text-blue-500 transition-all duration-300 transform hover:scale-105 flex items-center gap-1 font-semibold ${transparent ? "text-white" : "text-foreground"}`}>
                 <span id="about-text">About Us</span>
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -70,21 +70,17 @@ export function Navigation() {
                 </Link>
               </div>
             </div>
-            <Link href="/career" className="text-foreground hover:text-accent transition-all duration-300 transform hover:scale-105">
+            <Link href="/career" className={`hover:text-blue-500 transition-all duration-300 transform hover:scale-105 font-semibold ${transparent ? "text-white" : "text-foreground"}`}>
               <span id="career-text">Career</span>
             </Link>
-            <Link href="/contact" className="text-foreground hover:text-accent transition-all duration-300 transform hover:scale-105">
+            <Link href="/contact" className={`hover:text-blue-500 transition-all duration-300 transform hover:scale-105 font-semibold ${transparent ? "text-white" : "text-foreground"}`}>
               <span id="contact-text">Contact Us</span>
             </Link>
-          </div>
-
-          {/* Search, Language Dropdown and Login Button */}
-          <div className="flex items-center gap-4">
             <SearchButton />
             <LanguageSwitcher />
             <Link
               href="/login"
-              className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-semibold"
             >
               <span id="login-text">Login</span>
             </Link>
