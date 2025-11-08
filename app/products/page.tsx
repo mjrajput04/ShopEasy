@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 
@@ -278,6 +279,7 @@ export default function ProductsPage() {
 
   return (
     <main className="min-h-screen bg-background">
+      <Navigation />
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex gap-8">
           {/* Left Sidebar - Search and Filters */}

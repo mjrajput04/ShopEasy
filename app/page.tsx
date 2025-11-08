@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 
 interface Product {
@@ -187,6 +188,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background">
+      <Navigation />
       <section className="banner-container relative bg-background min-h-[80vh]">
         {banners.map((banner, index) => {
           const isActive = index === currentBanner

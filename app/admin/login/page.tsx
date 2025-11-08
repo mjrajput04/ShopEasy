@@ -4,10 +4,13 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
+import { useAuth } from "@/app/auth/context"
 
 export default function AdminLoginPage() {
   const router = useRouter()
+  const { login } = useAuth()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
@@ -27,12 +30,7 @@ export default function AdminLoginPage() {
 
       // Admin credentials
       if (email === "admin@shopease.com" && password === "admin123") {
-        const userData = {
-          email,
-          role: "admin",
-          loginTime: new Date().toISOString(),
-        }
-        localStorage.setItem("user", JSON.stringify(userData))
+        await login(email, password, "admin")
         router.push("/admin/dashboard")
       } else {
         setError("Invalid email or password")
@@ -46,6 +44,7 @@ export default function AdminLoginPage() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
+      <Navigation />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* Header */}

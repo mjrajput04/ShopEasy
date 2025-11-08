@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 
 interface JobOpening {
@@ -43,6 +44,7 @@ const jobOpenings: JobOpening[] = [
 export default function CareerPage() {
   return (
     <main className="min-h-screen bg-background">
+      <Navigation />
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="mb-12">
           <h1 className="text-5xl font-bold text-foreground mb-4">Join Our Team</h1>

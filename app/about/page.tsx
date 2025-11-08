@@ -1,9 +1,11 @@
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-background">
+      <Navigation />
       <div className="max-w-4xl mx-auto px-4 py-16">
         <div className="mb-16">
           <h1 className="text-5xl font-bold text-foreground mb-8">About ShopEase</h1>

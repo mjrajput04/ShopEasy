@@ -2,6 +2,7 @@
 
 import { useState, use } from "react"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 
 interface Product {
@@ -126,6 +127,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   if (!product) {
     return (
       <main className="min-h-screen bg-background">
+        <Navigation />
         <div className="max-w-7xl mx-auto px-4 py-12 text-center">
           <h1 className="text-3xl font-bold text-foreground mb-4" id="product-not-found">Product Not Found</h1>
           <p className="text-muted-foreground mb-8" id="product-not-found-desc">Sorry, we couldn't find the product you're looking for.</p>
@@ -147,6 +149,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
   return (
     <main className="min-h-screen bg-background">
+      <Navigation />
       {/* Product Details Section */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 gap-12 mb-16">

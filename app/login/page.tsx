@@ -5,6 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { useAuth } from "@/app/auth/context"
 
@@ -53,6 +54,7 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-background flex flex-col">
+      <Navigation />
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-4xl">
           {/* Header */}

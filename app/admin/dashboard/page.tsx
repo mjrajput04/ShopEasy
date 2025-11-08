@@ -290,7 +290,6 @@ export default function AdminDashboard() {
         )}
       </div>
 
-      <Footer />
     </main>
   )
 }
