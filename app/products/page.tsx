@@ -280,27 +280,27 @@ export default function ProductsPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
         <div className="flex gap-8">
-          {/* Left Sidebar - Search and Filters */}
+          {/* Left Sidebar */}
           <div className="w-64 flex-shrink-0">
-            <div className="bg-card border border-border rounded-xl p-6 sticky top-8 shadow-sm">
-              <h2 className="text-xl font-bold text-foreground mb-6" id="find-products">Find Products</h2>
+            <div className="bg-card border border-border rounded-xl p-6 sticky top-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <h2 className="text-xl font-bold text-foreground mb-6">Find Products</h2>
               
               {/* Search */}
               <div className="mb-8">
                 <input
                   type="text"
-                  placeholder="Search products..." id="search-placeholder"
+                  placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-3 border border-border rounded-lg text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                  className="w-full px-4 py-3 border border-border rounded-lg text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                 />
               </div>
 
               {/* Category Filter */}
               <div className="mb-8">
-                <h3 className="font-semibold mb-4 text-foreground" id="category-filter">Category</h3>
+                <h3 className="font-semibold mb-4 text-foreground">Category</h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
                     <label key={category} className="flex items-center cursor-pointer group">
@@ -312,7 +312,7 @@ export default function ProductsPage() {
                         onChange={(e) => setSelectedCategory(e.target.value)}
                         className="mr-3 cursor-pointer accent-blue-600"
                       />
-                      <span className={`text-sm transition ${selectedCategory === category ? 'font-semibold text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                      <span className={`text-sm transition-all duration-200 ${selectedCategory === category ? 'font-semibold text-foreground translate-x-1' : 'text-muted-foreground group-hover:text-foreground group-hover:translate-x-1'}`}>
                         {category}
                       </span>
                     </label>
@@ -320,10 +320,10 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              {/* Price Range Filter */}
+              {/* Price Range */}
               <div>
-                <h3 className="font-semibold mb-3 text-foreground"><span id="price-range-text">Price Range</span></h3>
-                <div className="bg-blue-50 dark:bg-blue-950/20 rounded-lg p-3 mb-3">
+                <h3 className="font-semibold mb-3 text-foreground">Price Range</h3>
+                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950/20 dark:to-cyan-950/20 rounded-lg p-3 mb-3">
                   <p className="text-lg font-bold text-blue-600">₹{priceRange.toLocaleString()}</p>
                 </div>
                 <input
@@ -332,7 +332,7 @@ export default function ProductsPage() {
                   max="100000"
                   value={priceRange}
                   onChange={(e) => setPriceRange(Number(e.target.value))}
-                  className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground mt-2">
                   <span>₹0</span>
@@ -342,21 +342,23 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Right Content - Products Grid */}
+          {/* Products Grid */}
           <div className="flex-1">
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-foreground mb-2" id="all-products-title">All Products</h1>
-              <p className="text-muted-foreground"><span id="showing-text">Showing</span> <span className="font-semibold text-foreground">{filteredProducts.length}</span> <span id="products-count-text">products</span></p>
+              <h1 className="text-3xl font-bold text-foreground mb-2">All Products</h1>
+              <p className="text-muted-foreground">Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> products</p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.length > 0 ? (
-                filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                filteredProducts.map((product, index) => (
+                  <div key={product.id} className="animate-slide-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <ProductCard product={product} />
+                  </div>
                 ))
               ) : (
                 <div className="col-span-full text-center py-20">
-                  <p className="text-muted-foreground text-lg" id="no-products-found">No products found matching your filters.</p>
+                  <p className="text-muted-foreground text-lg">No products found matching your filters.</p>
                 </div>
               )}
             </div>
