@@ -116,26 +116,30 @@ const allProducts: Product[] = [
 const banners = [
   {
     id: 1,
-    title: "SERVICE",
-    subtitle: "MANUFACTURING QUALITY, DISTRIBUTING RELATIONSHIPS",
+    title: "Transforming Industries",
+    subtitle: "With Precision Engineering",
+    description: "Advanced extrusion and forming technologies for reliable and efficient manufacturing solutions worldwide.",
     image: "/banner/Banner-01-1.jpg",
   },
   {
     id: 2,
-    title: "QUALITY",
-    subtitle: "PREMIUM PRODUCTS FOR MODERN LIFESTYLE",
+    title: "Quality Excellence",
+    subtitle: "Premium Products",
+    description: "Delivering world-class manufacturing solutions with cutting-edge technology and unmatched precision.",
     image: "/banner/Banner-02-1.jpg",
   },
   {
     id: 3,
-    title: "INNOVATION",
-    subtitle: "LEADING THE FUTURE OF RETAIL EXCELLENCE",
+    title: "Innovation Driven",
+    subtitle: "Leading the Future",
+    description: "Pioneering advanced manufacturing techniques to meet the evolving needs of modern industries.",
     image: "/banner/Banner-New-1.jpg",
   },
   {
     id: 4,
-    title: "EXCELLENCE",
-    subtitle: "DELIVERING SUPERIOR CUSTOMER EXPERIENCE",
+    title: "Customer Excellence",
+    subtitle: "Superior Experience",
+    description: "Committed to delivering exceptional service and building lasting relationships with our partners.",
     image: "/banner/services.jpg",
   },
 ]
@@ -145,8 +149,14 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [priceRange, setPriceRange] = useState(500)
   const [currentBanner, setCurrentBanner] = useState(0)
+  const [bannerKey, setBannerKey] = useState(0)
+  const [mounted, setMounted] = useState(false)
 
   const categories = ["All", ...new Set(allProducts.map((p) => p.category))]
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const filteredProducts = useMemo(() => {
     return allProducts.filter((product) => {
@@ -160,7 +170,8 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentBanner((prev) => (prev + 1) % banners.length)
-    }, 4000)
+      setBannerKey((prev) => prev + 1)
+    }, 7000)
     return () => clearInterval(timer)
   }, [])
 
@@ -194,28 +205,40 @@ export default function Home() {
       <section className="banner-container relative bg-background min-h-screen">
         {banners.map((banner, index) => {
           const isActive = index === currentBanner
+          const animationType = index % 2 === 0 ? 'split' : 'square'
 
           return (
-            <div
-              key={banner.id}
-              className={`banner-item relative bg-cover bg-center transition-opacity duration-700 ${
-                isActive ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ backgroundImage: `url(${banner.image})` }}
-            >
-              <div className="absolute inset-0 bg-black/40"></div>
+            <div key={`${banner.id}-${bannerKey}`} className="banner-item">
+              {isActive && (
+                animationType === 'split' ? (
+                  <>
+                    <div className="absolute inset-0 bg-cover bg-center animate-[slideTopLeft_0.6s_ease-out_forwards]" style={{ backgroundImage: `url(${banner.image})` }} />
+                    <div className="absolute inset-0 bg-cover bg-center animate-[slideTopRight_0.6s_ease-out_0.15s_forwards]" style={{ backgroundImage: `url(${banner.image})` }} />
+                    <div className="absolute inset-0 bg-cover bg-center animate-[slideBottomLeft_0.6s_ease-out_0.3s_forwards]" style={{ backgroundImage: `url(${banner.image})` }} />
+                    <div className="absolute inset-0 bg-cover bg-center animate-[slideBottomRight_0.6s_ease-out_0.45s_forwards]" style={{ backgroundImage: `url(${banner.image})` }} />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-cover bg-center animate-[squareReveal_1.2s_ease-out_forwards]" style={{ backgroundImage: `url(${banner.image})` }} />
+                )
+              )}
               
-              {/* Animated Blue Circles */}
-              <div className={`absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/60 rounded-full blur-2xl transition-all duration-1000 z-10 ${
+              <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
+              
+              <div className={`absolute top-20 left-10 w-[600px] h-[600px] bg-blue-700/30 rounded-full transition-all duration-1000 z-10 ${
                 isActive ? "animate-float-up opacity-100" : "opacity-0 translate-y-20"
               }`}></div>
-              <div className={`absolute bottom-1/4 right-1/3 w-[500px] h-[500px] bg-cyan-400/50 rounded-full blur-2xl transition-all duration-1000 delay-300 z-10 ${
+              <div className={`absolute top-60 left-60 w-[600px] h-[600px] bg-sky-400/30 rounded-full transition-all duration-1000 delay-300 z-10 ${
                 isActive ? "animate-float-up opacity-100" : "opacity-0 translate-y-20"
               }`}></div>
               
-              <div className="relative z-10 h-full max-w-7xl mx-auto px-4 flex flex-col items-start justify-center pt-32">
-                <h1 className="text-6xl md:text-8xl font-bold text-white mb-4">{banner.title}</h1>
-                <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl">{banner.subtitle}</p>
+              <div className="relative z-10 h-full max-w-7xl mx-auto px-4 flex flex-col items-start justify-start pt-40">
+                <div className={`transition-all duration-700 delay-700 ${
+                  isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}>
+                  <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 leading-tight drop-shadow-lg">{banner.title}</h1>
+                  <h2 className="text-3xl md:text-5xl font-semibold text-blue-400 mb-6 drop-shadow-lg">{banner.subtitle}</h2>
+                  <p className="text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed drop-shadow-md">{banner.description}</p>
+                </div>
               </div>
             </div>
           )

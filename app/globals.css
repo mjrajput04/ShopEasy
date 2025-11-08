@@ -340,3 +340,61 @@ nav a:hover::after {
 .animate-float-up {
   animation: floatUp 1s ease-out forwards;
 }
+
+/* Banner split animation */
+@keyframes slideTopLeft {
+  from {
+    clip-path: polygon(0 0, 50% 0, 25% 25%, 0 50%);
+    transform: translate(-100%, -100%);
+  }
+  to {
+    clip-path: polygon(0 0, 50% 0, 25% 25%, 0 50%);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideTopRight {
+  from {
+    clip-path: polygon(50% 0, 100% 0, 100% 50%, 75% 25%);
+    transform: translate(100%, -100%);
+  }
+  to {
+    clip-path: polygon(50% 0, 100% 0, 100% 50%, 75% 25%);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideBottomLeft {
+  from {
+    clip-path: polygon(0 50%, 25% 75%, 50% 100%, 0 100%);
+    transform: translate(-100%, 100%);
+  }
+  to {
+    clip-path: polygon(0 50%, 25% 75%, 50% 100%, 0 100%);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes slideBottomRight {
+  from {
+    clip-path: polygon(50% 100%, 100% 100%, 100% 50%, 75% 25%, 25% 75%);
+    transform: translate(100%, 100%);
+  }
+  to {
+    clip-path: polygon(50% 100%, 100% 100%, 100% 50%, 75% 25%, 25% 75%);
+    transform: translate(0, 0);
+  }
+}
+
+/* Square expansion animation */
+@keyframes squareReveal {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  40% {
+    clip-path: circle(15% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(100% at 50% 50%);
+  }
+}
