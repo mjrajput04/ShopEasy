@@ -23,7 +23,7 @@ export default function ASMDashboardLayout({
           <Sidebar className="bg-black text-white" style={{ backgroundColor: 'black', color: 'white' }} collapsible={isIsMobile}>
             <SidebarHeader>
               <Link href="/asm/dashboard" className="flex h-14 items-center justify-center">
-                <p className="text-lg font-semibold">ASM Dashboard</p>
+                <p className="text-lg font-semibold text-black">ASM Dashboard</p>
               </Link>
             </SidebarHeader>
             <SidebarBody className="flex flex-col gap-y-2">
