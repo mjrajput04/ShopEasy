@@ -1,129 +1,132 @@
 "use client"
 
 import { useAuth } from "@/app/auth/context"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { useEffect, useState } from "react"
-
+import { TrendingUp, TrendingDown, Users, ShoppingCart, Package, Clock } from "lucide-react"
 
 export default function ASMDashboard() {
-  const { user, logout, isLoading } = useAuth()
-  const router = useRouter()
-  const [mounted, setMounted] = useState(false)
+  const { user } = useAuth()
 
-  useEffect(() => {
-    setMounted(true)
-    if (!isLoading && (!user || user.role !== "asm")) {
-      router.push("/login")
-    }
-  }, [user, isLoading, router])
-
-  if (!mounted || isLoading || !user || user.role !== "asm") {
-    return null
+  const analyticsData = {
+    accountsManaged: 24,
+    pendingOrders: 8,
+    totalRevenue: 45200,
+    avgSatisfaction: 4.8,
+    accountGrowth: 8.5,
+    orderGrowth: 5.2,
+    revenueGrowth: 12.3,
   }
 
   return (
-    <main className="min-h-screen bg-background flex flex-col">
-      <div className="flex-1 max-w-7xl mx-auto px-4 py-12 w-full">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-12">
-          <div>
-            <h1 className="text-4xl font-bold text-foreground">ASM Dashboard</h1>
-            <p className="text-muted-foreground mt-2">Account Service Manager Portal</p>
-          </div>
-          <button
-            onClick={() => {
-              logout()
-              router.push("/")
-            }}
-            className="px-6 py-2 bg-secondary text-foreground rounded-lg hover:bg-accent hover:text-accent-foreground transition font-semibold"
-          >
-            Logout
-          </button>
-        </div>
+    <div className="p-8 animate-fade-in">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-foreground bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Dashboard</h1>
+        <p className="text-muted-foreground mt-2">Welcome back, {user?.email}</p>
+      </div>
 
-        {/* Key Metrics */}
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
-          {[
-            { label: "Accounts Managed", value: "24", icon: "👥" },
-            { label: "Pending Orders", value: "8", icon: "📋" },
-            { label: "Total Revenue", value: "$45,200", icon: "💰" },
-            { label: "Avg Satisfaction", value: "4.8★", icon: "⭐" },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-card border border-border rounded-lg p-6">
-              <div className="text-2xl mb-2">{stat.icon}</div>
-              <p className="text-muted-foreground text-sm">{stat.label}</p>
-              <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+      <div className="space-y-8">
+        <div className="grid md:grid-cols-4 gap-6">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <Users className="w-8 h-8 opacity-80" />
+              <div className="bg-white/20 rounded-lg px-3 py-1 flex items-center gap-1">
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-sm font-semibold">{analyticsData.accountGrowth}%</span>
+              </div>
             </div>
-          ))}
+            <p className="text-white/80 text-sm mb-1">Accounts Managed</p>
+            <p className="text-4xl font-bold">{analyticsData.accountsManaged}</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <ShoppingCart className="w-8 h-8 opacity-80" />
+              <div className="bg-white/20 rounded-lg px-3 py-1 flex items-center gap-1">
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-sm font-semibold">{analyticsData.orderGrowth}%</span>
+              </div>
+            </div>
+            <p className="text-white/80 text-sm mb-1">Pending Orders</p>
+            <p className="text-4xl font-bold">{analyticsData.pendingOrders}</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <Package className="w-8 h-8 opacity-80" />
+              <div className="bg-white/20 rounded-lg px-3 py-1 flex items-center gap-1">
+                <TrendingUp className="w-4 h-4" />
+                <span className="text-sm font-semibold">{analyticsData.revenueGrowth}%</span>
+              </div>
+            </div>
+            <p className="text-white/80 text-sm mb-1">Total Revenue</p>
+            <p className="text-4xl font-bold">${(analyticsData.totalRevenue / 1000).toFixed(1)}K</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-3xl">⭐</span>
+              <div className="bg-white/20 rounded-lg px-3 py-1">
+                <span className="text-sm font-semibold">AVG</span>
+              </div>
+            </div>
+            <p className="text-white/80 text-sm mb-1">Avg Satisfaction</p>
+            <p className="text-4xl font-bold">{analyticsData.avgSatisfaction}★</p>
+          </div>
         </div>
 
-        {/* Management Tools */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-foreground mb-6">Management Tools</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                title: "Product Management",
-                desc: "Add, edit, and manage product listings",
-                link: "/asm/products",
-              },
-              {
-                title: "Stock Management",
-                desc: "Monitor and update inventory levels",
-                link: "/asm/inventory",
-              },
-              {
-                title: "Order Management",
-                desc: "Process and track customer orders",
-                link: "/asm/orders",
-              },
-              {
-                title: "Customer Accounts",
-                desc: "Manage customer profiles and settings",
-                link: "/asm/customers",
-              },
-            ].map((tool) => (
-              <Link
-                key={tool.title}
-                href={tool.link}
-                className="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition cursor-pointer"
-              >
-                <h3 className="text-lg font-semibold text-foreground mb-2">{tool.title}</h3>
-                <p className="text-muted-foreground">{tool.desc}</p>
-                <div className="mt-4 text-accent font-semibold text-sm">View →</div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Recent Activity */}
-        <section>
-          <h2 className="text-2xl font-bold text-foreground mb-6">Recent Activity</h2>
-          <div className="bg-card border border-border rounded-lg overflow-hidden">
-            <div className="divide-y divide-border">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <Clock className="w-5 h-5 text-accent" />
+              Recent Activity
+            </h2>
+            <div className="space-y-4">
               {[
-                { action: "Order #ORD-045 completed", time: "2 hours ago", type: "completed" },
-                { action: "Inventory updated for Smart Watch Pro", time: "5 hours ago", type: "inventory" },
-                { action: "New customer account created", time: "1 day ago", type: "customer" },
-                { action: "Order #ORD-044 shipped", time: "2 days ago", type: "shipped" },
-              ].map((activity, i) => (
-                <div key={i} className="p-4 hover:bg-secondary transition">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-foreground">{activity.action}</p>
-                      <p className="text-sm text-muted-foreground">{activity.time}</p>
+                { action: "Order #ORD-045 completed", user: "Customer A", time: "2 hours ago", color: "bg-green-500" },
+                { action: "Inventory updated", user: "Smart Watch Pro", time: "5 hours ago", color: "bg-blue-500" },
+                { action: "New customer account", user: "John Smith", time: "1 day ago", color: "bg-purple-500" },
+                { action: "Order #ORD-044 shipped", user: "Customer B", time: "2 days ago", color: "bg-orange-500" },
+              ].map((activity, index) => (
+                <div key={index} className="flex items-start gap-4 pb-4 border-b border-border last:border-0 hover:bg-secondary/50 p-2 rounded-lg transition-colors">
+                  <div className={`w-2 h-2 rounded-full ${activity.color} mt-2`}></div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-foreground">{activity.action}</p>
+                    <p className="text-sm text-muted-foreground">{activity.user}</p>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{activity.time}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-accent" />
+              Quick Stats
+            </h2>
+            <div className="space-y-4">
+              {[
+                { label: "Active Orders", value: "15", change: "+3", trend: "up" },
+                { label: "Low Stock Items", value: "5", change: "-2", trend: "down" },
+                { label: "Active Customers", value: "342", change: "+28", trend: "up" },
+                { label: "Pending Requests", value: "7", change: "-1", trend: "down" },
+              ].map((stat, index) => (
+                <div key={index} className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg hover:bg-secondary transition-colors">
+                  <p className="text-foreground font-medium">{stat.label}</p>
+                  <div className="flex items-center gap-3">
+                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                    <div className={`flex items-center gap-1 text-sm font-semibold ${
+                      stat.trend === "up" ? "text-green-600" : "text-red-600"
+                    }`}>
+                      {stat.trend === "up" ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                      {stat.change}
                     </div>
-                    <span className="px-3 py-1 bg-secondary text-foreground text-xs font-semibold rounded-full">
-                      {activity.type}
-                    </span>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
       </div>
-    </main>
+    </div>
   )
 }
